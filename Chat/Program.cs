@@ -1,3 +1,5 @@
+using Chat.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.WebHost.UseUrls("http://0.0.0.0:8080");
+var port = EnvironmentAccessor.GetVar<int>("PORT");
+if (port > 0)
+{
+    builder.WebHost.UseUrls("http://0.0.0.0:" + port);
+}
 
 var app = builder.Build();
 
